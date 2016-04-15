@@ -14,6 +14,7 @@
 // limitations under the License.
 
 namespace Highscore\score;
+
 use Highscore\core\Doctrine;
 
 /**
@@ -55,11 +56,15 @@ class Score {
    *
    * @param $name string name of the player
    * @param $score int his score
+   * @param $datePlayed \DateTime|null the date played
    */
-  public function __construct($name, $score) {
+  public function __construct($name, $score, $datePlayed = null) {
+    if ($datePlayed === null) {
+      $datePlayed = new \DateTime();
+    }
     $this->name = $name;
     $this->score = $score;
-    $this->datePlayed = new \DateTime();
+    $this->datePlayed = $datePlayed;
   }
 
   /**
