@@ -88,6 +88,14 @@ class Score {
     return $this->datePlayed;
   }
 
+  public function toArray() {
+    return array(
+      'name' => $this->getName(),
+      'score' => $this->getScore(),
+      'datePlayed' => $this->getDatePlayed()
+    );
+  }
+
   /**
    * @param $number int how many of the best players you want to show
    * @return array an associative array containing rank, name and score
@@ -100,13 +108,8 @@ class Score {
     $queryBuilder->select('s')->from(static::class, 's')->orderBy('s.score', 'DESC')->setMaxResults($number);
     $scores = $queryBuilder->getQuery()->getResult();
 
-    for ($i = 0; $i < count($scores); $i++) {
-      $score = $scores[$i];
-      array_push($result, array(
-        'name' => $score->getName(),
-        'score' => $score->getScore(),
-        'rank' => $i + 1
-      ));
+    foreach ($scores as $score) {
+      array_push($result, $score->toArray());
     }
 
     return $result;
