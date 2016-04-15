@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require_once  __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 if (!defined('HIGHSCORE_CONFIG')) {
   $highscoreConfig = __DIR__ . '/highscore.ini';
@@ -25,14 +25,16 @@ if (!defined('HIGHSCORE_CONFIG')) {
 }
 
 // doctrine configuration
+$configuration = new \Highscore\configuration\IniConfiguration(HIGHSCORE_CONFIG);
+
 $paths = array('src');
-$devMode = true;
+$devMode = $configuration->get('general', 'devmode');
 
 $dbConnection = array(
-  'driver'   => 'pdo_mysql',
-  'user'     => 'root',
-  'password' => '',
-  'dbname'   => 'pong'
+  'driver' => $configuration->get('database', 'driver'),
+  'user' => $configuration->get('database', 'user'),
+  'password' => $configuration->get('database', 'password'),
+  'dbname' => $configuration->get('database', 'dbname')
 );
 
 $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($paths, $devMode);
