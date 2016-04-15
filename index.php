@@ -21,6 +21,18 @@ $router->respond('GET', '/highscores', function ($request, $response) {
   $response->json(\Highscore\score\Score::getTopScores(10));
 });
 
+$router->respond('PUT', '/highscore', function ($request, $response) {
+  // FIXME find better way to get data
+  $requestBody = $request->body();
+  $requestData = json_decode($requestBody, true);
+
+  $score = new \Highscore\score\Score($requestData['name'], $requestData['score']);
+  \Highscore\core\Doctrine::getEntityManager()->persist($score);
+  \Highscore\core\Doctrine::getEntityManager()->flush();
+
+  $response->json(\Highscore\score\Score::getTopScores(10));
+});
+
 $router->dispatch();
 
 \Highscore\core\Doctrine::getEntityManager()->flush();
