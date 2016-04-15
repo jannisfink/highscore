@@ -15,6 +15,15 @@
 
 require_once  __DIR__ . '/vendor/autoload.php';
 
+if (!defined('HIGHSCORE_CONFIG')) {
+  $highscoreConfig = __DIR__ . '/highscore.ini';
+  if (!file_exists($highscoreConfig)) {
+    throw new RuntimeException('Configuration file (' . $highscoreConfig . ') does not exists. You have to copy
+    the highscore.sample.ini in the same directory and change it\'s values to match your environment');
+  }
+  define('HIGHSCORE_CONFIG', $highscoreConfig);
+}
+
 // doctrine configuration
 $paths = array('src');
 $devMode = true;
