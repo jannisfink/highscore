@@ -16,14 +16,10 @@
 namespace Highscore\routing;
 
 
+use Highscore\configuration\IniConfiguration;
 use Klein\Klein;
 
 class Router extends Klein {
-
-  /**
-   * FIXME move this to config file
-   */
-  const SUB_DIRECTORY = '/pong';
 
   /**
    * Overwrite {@link Klein} respond method to allow easier sub paths
@@ -34,8 +30,10 @@ class Router extends Klein {
    * @return \Klein\Route
    */
   public function respond($method, $path = '*', $callback = null) {
+    $configuration = new IniConfiguration(HIGHSCORE_CONFIG);
+    $subDirectory = $configuration->get('general', 'webroot');
     if ($path !== '*') {
-      $path = self::SUB_DIRECTORY . $path;
+      $path = $subDirectory . $path;
     }
     return parent::respond($method, $path, $callback);
   }
