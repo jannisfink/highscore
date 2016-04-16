@@ -25,12 +25,27 @@ $router->respond('PUT', '/highscore', function ($request, $response) {
   // FIXME find better way to get data
   $requestBody = $request->body();
   $requestData = json_decode($requestBody, true);
+  $configuration = new \Highscore\configuration\IniConfiguration(HIGHSCORE_CONFIG);
 
-  $score = new \Highscore\score\Score($requestData['name'], $requestData['score']);
-  \Highscore\core\Doctrine::getEntityManager()->persist($score);
-  \Highscore\core\Doctrine::getEntityManager()->flush();
+  if ($requestData !== null &&
+    array_key_exists('name', $requestData) &&
+    array_key_exists('score', $requestData) &&
+    array_key_exists('token', $requestData) &&
+    $requestData['token'] === $configuration->get('security', 'token')
+  ) {
+    $score = new \Highscore\score\Score($requestData['name'], $requestData['score']);
+    \Highscore\core\Doctrine::getEntityManager()->persist($score);
+    \Highscore\core\Doctrine::getEntityManager()->flush();
 
-  $response->json(\Highscore\score\Score::getTopScores(10));
+    $response->json(array(
+      'score' => $score->toArray(),
+      'success' => true
+    ));
+  } else {
+    $response->json(array(
+      'success' => false
+    ));
+  }
 });
 
 $router->dispatch();
