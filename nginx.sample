@@ -1,0 +1,16 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/highscore;
+    index index.php;
+
+    server_name example.com;
+
+    location / {
+        try_files /index.php?$args;
+    }
+
+    [...]php configuration[...]
+
+}
