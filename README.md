@@ -24,10 +24,37 @@ You can find the `index.php` in the base directory. Every incoming request has t
 The `.htaccess` should do this job already for apache, `web.config` for IIS. The `nginx.sample` contains a
 minimum configuration sample for the nginx webserver.
 
+### Generate database schema
+
+Simply run
+
+```
+vendor/bin/doctrine orm:schema-tool:create
+```
+
 ## Usage
 
 ###  API
-Access the top 10 scores via `example.com/highscores`. To create a new highscore, just make an HTTP PUT-Request
+
+#### Get highscores
+Access the top 10 scores via `example.com/highscores`. It will give you a result lie the following:
+
+```javascript
+[
+  {
+    "name": "Jannis",
+    "score": 1,
+    "datePlayed": {
+      "date": "2016-04-16 13:04:45.000000",
+      "timezone_type": 3,
+      "timezone": "UTC"
+    }
+  }
+]
+```
+
+#### Create new entry
+To create a new highscore, just make an HTTP PUT-Request
 to `example.com/highscore`. The request body must contain a JSON-object with three parameters:
 
 ```javascript
