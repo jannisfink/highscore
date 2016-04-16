@@ -48,7 +48,7 @@ via the `score` key:
     'name': 'player name',
     'score': 102,
     'datePlayed': {
-      'date": '2016-04-16 09:52:43.000000',
+      'date': '2016-04-16 09:52:43.000000',
       'timezone_type': 3,
       'timezone': 'Europe/Berlin'
     }
