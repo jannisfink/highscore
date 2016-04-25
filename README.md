@@ -24,6 +24,16 @@ You can find the `index.php` in the base directory. Every incoming request has t
 The `.htaccess` should do this job already for apache, `web.config` for IIS. The `nginx.sample` contains a
 minimum configuration sample for the nginx webserver.
 
+### Install dependencies
+
+Get composer from https://getcomposer.org/. After that, just run
+
+```
+php composer.phar install
+```
+
+to install all dependencies necessary.
+
 ### Generate database schema
 
 Simply run
