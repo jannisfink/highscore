@@ -26,7 +26,7 @@ minimum configuration sample for the nginx webserver.
 
 ### Install dependencies
 
-Get composer from https://getcomposer.org/. After that, just run
+Get composer from [https://getcomposer.org/](https://getcomposer.org/). After that, just run
 
 ```
 php composer.phar install
@@ -47,18 +47,14 @@ vendor/bin/doctrine orm:schema-tool:create
 ###  API
 
 #### Get highscores
-Access the top 10 scores via `example.com/highscores`. It will give you a result lie the following:
+Access the top 10 scores via `example.com/highscores`. It will give you a result like the following:
 
 ```javascript
 [
   {
     "name": "Jannis",
     "score": 1,
-    "datePlayed": {
-      "date": "2016-04-16 13:04:45.000000",
-      "timezone_type": 3,
-      "timezone": "UTC"
-    }
+    "datePlayed": "2016-04-14T21:11:52+0200"
   }
 ]
 ```
@@ -84,11 +80,7 @@ via the `score` key:
   'score': {
     'name': 'player name',
     'score': 102,
-    'datePlayed': {
-      'date': '2016-04-16 09:52:43.000000',
-      'timezone_type': 3,
-      'timezone': 'Europe/Berlin'
-    }
+    'datePlayed': "2016-04-14T21:11:52+0200"
   },
   'success': true
 }
