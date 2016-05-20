@@ -16,7 +16,7 @@
 namespace Highscore\routing;
 
 
-use Highscore\configuration\IniConfiguration;
+use Fink\config\Configuration;
 use Klein\Klein;
 
 class Router extends Klein {
@@ -30,7 +30,7 @@ class Router extends Klein {
    * @return \Klein\Route
    */
   public function respond($method, $path = '*', $callback = null) {
-    $configuration = new IniConfiguration(HIGHSCORE_CONFIG);
+    $configuration = new Configuration(HIGHSCORE_CONFIG);
     $subDirectory = $configuration->get('general', 'webroot');
     if ($path !== '*') {
       $path = $subDirectory . $path;

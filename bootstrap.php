@@ -25,7 +25,7 @@ if (!defined('HIGHSCORE_CONFIG')) {
 }
 
 // doctrine configuration
-$configuration = new \Highscore\configuration\IniConfiguration(HIGHSCORE_CONFIG);
+$configuration = new \Fink\config\Configuration(HIGHSCORE_CONFIG);
 
 $paths = array('src');
 $devMode = $configuration->get('general', 'devmode');
