@@ -27,7 +27,7 @@ use Highscore\core\Doctrine;
  * @Entity
  * @Table(name="score")
  */
-class Score {
+class Score implements \JsonSerializable {
 
   /**
    * @Id
@@ -88,11 +88,18 @@ class Score {
     return $this->datePlayed;
   }
 
-  public function toArray() {
+  /**
+   * Specify data which should be serialized to JSON
+   * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+   * @return mixed data which can be serialized by <b>json_encode</b>,
+   * which is a value of any type other than a resource.
+   * @since 5.4.0
+   */
+  function jsonSerialize() {
     return array(
       'name' => $this->getName(),
       'score' => $this->getScore(),
-      'datePlayed' => $this->getDatePlayed()
+      'datePlayed' => $this->getDatePlayed()->format(\DateTime::ISO8601)
     );
   }
 
@@ -109,7 +116,7 @@ class Score {
     $scores = $queryBuilder->getQuery()->getResult();
 
     foreach ($scores as $score) {
-      array_push($result, $score->toArray());
+      array_push($result, $score);
     }
 
     return $result;
